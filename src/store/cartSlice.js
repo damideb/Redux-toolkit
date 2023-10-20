@@ -27,8 +27,7 @@ const cartSlice = createSlice({
                     })
                     state.totalQuantity++
                 }
-            
-        },
+            },
         removeFromCart(state, action) {
             
             const id = action.payload;
@@ -42,9 +41,7 @@ const cartSlice = createSlice({
             }
           },
         showCart:(state)=>  { state.showCart=!state.showCart}
-        
-    }
-})
+    }})
 
 export const cartActions = cartSlice.actions
 export default cartSlice

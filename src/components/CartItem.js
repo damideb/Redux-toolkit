@@ -8,14 +8,14 @@ const CartItem = ({ name, quantity, total, price, id }) => {
   const removeHandler = () => {
     dispatch(cartActions.removeFromCart(id));
   };
+
   const addHandler = () => {
     dispatch(
       cartActions.addToCart({
         id,
         name,
         price,
-      })
-    );
+      }));
   };
   return (
     <div className="cartItem">
