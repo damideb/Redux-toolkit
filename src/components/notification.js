@@ -5,13 +5,12 @@ import { useDispatch } from 'react-redux';
 import { UIActions } from '../store/UI_slice';
 
 function Notification({type, message}) {
-    const notification = useSelector(state=>state.ui.notification)
+  
+    const notification = useSelector(state=>state.ui.Notification)
     const dispatch = useDispatch()
 
     const handleClose = ()=>{
-        dispatch(UIActions.showNotification({
-            open:false
-        }))
+        dispatch(UIActions.showNotification())
     }
   return (
     <div>
