@@ -1,11 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+ export const getData = createAsyncThunk("cart/getData",  async()=>{
+        const res =  await fetch("https://redux-http-1d9aa-default-rtdb.firebaseio.com/cartitems.json")
+        const data = await res.json()
+        return data;
+    })
+ 
 
 const cartSlice = createSlice({
     name:"cart",
     initialState:{
         itemsList:[],
         totalQuantity:0,
-        message: "",
         showCart:false
     },
     reducers:{
@@ -41,6 +47,13 @@ const cartSlice = createSlice({
             }
           },
         showCart:(state)=>  { state.showCart=!state.showCart}
+    },
+        extraReducers:(builder)=>{
+                builder.addCase(getData.fulfilled,(state, action)=>{
+                    console.log(action.payload)
+                   state.itemsList = action.payload.itemsList
+                   state.totalQuantity= action.payload.totalQuantity
+                })
     }})
 
 

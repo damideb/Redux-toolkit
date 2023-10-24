@@ -5,16 +5,20 @@ import Auth from "./components/Auth";
 import Layout from "./components/Layout";
 import Notification from "./components/notification";
 import { sendCartdata } from "./store/UI_slice";
+import { getData } from "./store/cartSlice";
 
 
 function App() {
 const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
 const cart = useSelector(state=>state.cart)
 const notification = useSelector(state=>state.ui.Notification)
-
 const dispatch= useDispatch()
 let firstRender = useRef(true)
 
+
+useEffect(()=>{
+  dispatch(getData())
+},[dispatch])
 
 useEffect(()=>{
   if(firstRender.current){
@@ -23,7 +27,6 @@ useEffect(()=>{
   }
 dispatch(sendCartdata(cart))
 
-   
 },[cart,dispatch])
   return (
     <div className="App">

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getData } from "./cartSlice";
 
-export const sendCartdata = createAsyncThunk('UI_slice/sendCartItems',async(cart)=>{
+export const sendCartdata = createAsyncThunk('UI_slice/sendCartData',async(cart)=>{
     const res = await fetch("https://redux-http-1d9aa-default-rtdb.firebaseio.com/cartitems.json",{
         method:"PUT",
         body:JSON.stringify(cart)
@@ -19,7 +20,7 @@ const UI_slice = createSlice({
         }
     },
       extraReducers:(builder)=>{
-            builder.addCase(sendCartdata.pending,( state)=>{
+            builder.addCase(sendCartdata.pending, state=>{
                 state.Notification ={
                 message:"sending Request...",
                 type: 'warning',
@@ -31,7 +32,7 @@ const UI_slice = createSlice({
                     type: "success",
                     open:true
                     }})
-                    builder.addCase(sendCartdata.rejected,( state)=>{
+                    builder.addCase((sendCartdata.rejected, getData.rejected),( state)=>{
                         state.Notification ={
                             message:"Request failed",
                             type: "error",
