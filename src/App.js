@@ -25,7 +25,10 @@ useEffect(()=>{
     firstRender.current =false;
     return
   }
-dispatch(sendCartdata(cart))
+
+  if(cart.changed){
+    dispatch(sendCartdata(cart))
+  }
 
 },[cart,dispatch])
   return (

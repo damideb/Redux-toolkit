@@ -12,10 +12,12 @@ const cartSlice = createSlice({
     initialState:{
         itemsList:[],
         totalQuantity:0,
-        showCart:false
+        showCart:false, 
+        changed: false
     },
     reducers:{
         addToCart: (state,action)=>{
+            state.changed = true
             const newItem = action.payload
             const alreadyInCart = state.itemsList.find((item)=>newItem.id===item.id)
             
@@ -35,6 +37,7 @@ const cartSlice = createSlice({
                 }
             },
         removeFromCart(state, action) {
+            state.changed = true
             const id = action.payload;
             const existingItem = state.itemsList.find((item) => item.id === id);
 
@@ -50,12 +53,10 @@ const cartSlice = createSlice({
     },
         extraReducers:(builder)=>{
                 builder.addCase(getData.fulfilled,(state, action)=>{
-                    console.log(action.payload)
                    state.itemsList = action.payload.itemsList
                    state.totalQuantity= action.payload.totalQuantity
                 })
     }})
-
 
 export const cartActions = cartSlice.actions
 export default cartSlice
